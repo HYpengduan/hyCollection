@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="comm.include::header">
+</head>
+<link href="/business/commanage/query/detail.css" rel="stylesheet">
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content">
+		<div class="panel panel-success">
+			<div class="panel-body"   id="main-info">
+				<!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active"><a href="#customer-main-tab-c" aria-controls="customer-main-tab-c" role="tab" data-toggle="tab">客户主要信息</a></li>
+			    <li role="presentation"><a href="#case-info-c" aria-controls="case-info-c" role="tab" data-toggle="tab">案件信息</a></li>
+			    <li role="presentation"><a href="#cutomer-lsit-c" aria-controls="cutomer-lsit-c" role="tab" data-toggle="tab">账户列表</a></li>
+			    <li role="presentation"><a href="#cutomer-media-info-c" aria-controls="cutomer-media-info-c" role="tab" data-toggle="tab">客户多媒体信息</a></li>
+			  	<li role="presentation"><a href="#cutomer-history-info-c" aria-controls="cutomer-history-info-c" role="tab" data-toggle="tab">客户历史信息</a></li>
+			  </ul>
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane fade in active" id="customer-main-tab-c">.customer-main-tab-c.</div>
+			    <div role="tabpanel" class="tab-pane fade" id="case-info-c">.case-info-c..</div>
+			    <div role="tabpanel" class="tab-pane fade" id="cutomer-lsit-c">
+			    	<div class="data-table">
+						<table id="cutomer-list-data-table"></table>
+						<div id="cutomer-list-data-pagination"></div>
+					</div>
+			    </div>
+			    <div role="tabpanel" class="tab-pane fade" id="cutomer-media-info-c">cutomer-media-info-c..</div>
+			    <div role="tabpanel" class="tab-pane fade" id="cutomer-history-info-c">.cutomer-history-info-c.</div>
+			  </div>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panel-body row">
+				<div class="col-md-8" >
+					<div class="row">
+						<div class="panel panel-warning">
+							<div class="panel-body" id="customer-contact-info">
+								<ul class="nav nav-tabs" role="tablist">
+								    <li role="presentation" class="active"><a href="#contact-info-c" aria-controls="contact-info-c" role="tab" data-toggle="tab">联系信息</a></li>
+								    <li role="presentation"><a href="#repay-record-c" aria-controls="repay-record-c" role="tab" data-toggle="tab">还款记录</a></li>
+								    <li role="presentation"><a href="#promise-record-c" aria-controls="promise-record-c" role="tab" data-toggle="tab">承诺记录</a></li>
+								    <li role="presentation"><a href="#short-message-process-c" aria-controls="short-message-process-c" role="tab" data-toggle="tab">短信流程</a></li>
+								  </ul>
+								  <!-- Tab panes -->
+								  <div class="tab-content">
+								    <div role="tabpanel" class="tab-pane active" id="contact-info-c">
+								    	<div class="data-table">
+											<table id="contact-info-data-table"></table>
+											<div id="contact-info-data-pagination"></div>
+										</div>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="repay-record-c">
+								    	<div class="data-table">
+											<table id="repay-record-data-table"></table>
+											<div id="repay-record-data-pagination"></div>
+										</div>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="promise-record-c">
+								    	<div class="data-table">
+											<table id="promise-record-data-table"></table>
+											<div id="promise-record-data-pagination"></div>
+										</div>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="short-message-process-c">
+								    	<div class="data-table">
+											<table id="short-message-process-data-table"></table>
+											<div id="short-message-process-data-pagination"></div>
+										</div>
+								    </div>
+							 	</div>
+							</div>
+						</div>
+						<div class="panel panel-warning">
+							<div class="panel-body" id="case-change-info">
+								<ul class="nav nav-tabs" role="tablist">
+								    <li role="presentation" class="active"><a href="#collection-record-c" aria-controls="collection-record-c" role="tab" data-toggle="tab">催收记录</a></li>
+								    <li role="presentation"><a href="#label-record-history-c" aria-controls="label-record-history-c" role="tab" data-toggle="tab">注记历史</a></li>
+								    <li role="presentation"><a href="#queue-change-history-c" aria-controls="queue-change-history-c" role="tab" data-toggle="tab">队转历史</a></li>
+								    <li role="presentation"><a href="#collector-change-history-c" aria-controls="collector-change-history-c" role="tab" data-toggle="tab">催收员变更历史</a></li>
+								  </ul>
+								  <!-- Tab panes -->
+								  <div class="tab-content">
+								    <div role="tabpanel" class="tab-pane active" id="collection-record-c">
+								    	<div class="data-table">
+											<table id="collection-record-data-table"></table>
+											<div id="collection-record-data-pagination"></div>
+										</div>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="label-record-history-c">
+								    	<div class="data-table">
+											<table id="label-record-history-data-table"></table>
+											<div id="label-record-history-data-pagination"></div>
+										</div>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="queue-change-history-c">
+								    	<div class="data-table">
+											<table id="queue-change-history-data-table"></table>
+											<div id="queue-change-history-data-pagination"></div>
+										</div>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="collector-change-history-c">
+								    	<div class="data-table">
+											<table id="collector-change-history-data-table"></table>
+											<div id="collector-change-history-data-pagination"></div>
+										</div>
+								    </div>
+							 	</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div  class="col-md-4">
+						<div class="panel panel-primary">
+							<div class="panel-heading" style="margin-top:-1px;">操作面板</div>
+							<div class="panel-body"  id="record-note">
+								<div class="form-horizontal">
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">电话</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">催收动作</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">催收对象</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">催收结果</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">催收结果描述</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">承诺金额</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">承诺日期</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">设跟催日(天)</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<label class="control-label col-md-3">备注</label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="btn-toolbar btn-group-sm" role="toolbar">
+									<button type="button" class="btn btn-info">保存催记</button>
+									<button type="button" class="btn btn-default">下一个</button>
+								</div>
+								<div style="clear:both;"></div>
+							</div>
+						</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+	</div>
+	<div th:include="comm.include::footer"></div>
+	<script type="text/javascript" src="/business/commanage/query/detail.js"></script>
+	<script th:inline="javascript" type="text/javascript">
+		var editFlag = [[${@permissionService.hasPermi('system:role:edit')}]];
+		var removeFlag = [[${@permissionService.hasPermi('system:role:remove')}]];
+	</script>
+</body>
+</html>

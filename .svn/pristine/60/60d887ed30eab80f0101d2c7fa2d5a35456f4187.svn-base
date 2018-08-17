@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "/WEB-INF/dtd/spring-beans-2.0.dtd">
+<beans>
+	<!--
+	<bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/sems</value>
+		</property>
+	</bean>
+	-->
+	<bean id="bmsdataSource"
+		class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver">
+			<!-- <value>oracle.jdbc.driver.OracleDriver</value> -->
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		
+         <property name="driverUrl">
+			<!-- <value>jdbc:oracle:thin:@130.251.106.15:1521:deve</value>--> 
+			<value>jdbc:mysql://127.0.0.1:3306/topccms_cert?useUnicode=true&amp;characterEncoding=utf-8</value>
+		    <!-- <value>jdbc:mysql://127.0.0.1:3306/topccms_pro?characterEncoding=utf8</value> -->
+		</property>
+		<property name="user">
+			 <value>root</value> 
+		</property>
+		<property name="password">
+			 <value>root</value>
+		</property> 
+		<!-- proxool自动侦察各个连接状态的时间间隔(毫秒),侦察到空闲的连接就马上回收,超时的销毁 （默认30秒）-->
+		<!-- proxool-0.9.1不能设置
+		<property name="houseKeepingSleepTime">
+			<value>30000</value>
+		</property>
+		-->
+		<!-- 最少保持的空闲连接数 （默认5个）-->
+   		<property name="prototypeCount">
+   			<value>5</value>
+   		</property>
+		<!-- 设置连接池内生成的最大连接数/在连接池中所有数据库连接的最大数目（默认15个） -->
+	    <property name="maximumConnectionCount">
+	    	<value>15</value>
+	    </property>
+		<!-- 设置连接池内生成的最小连接数/在连接池中可用的数据库连接的最少数目（默认5个）-->
+	    <property name="minimumConnectionCount">
+	    	<value>5</value>
+	    </property>
+		<!-- 在Consonl中显示sql -->
+	    <property name="trace">
+	    	<value>false</value>
+	    </property>
+	    <property name="verbose">
+	    	<value>true</value>
+	    </property>
+	</bean>
+  <!--  旧的日志审计功能不能配置
+	<bean id="myListener" 
+		class="com.huateng.uniform.sysauditlogger.service.AuditLoggerListenerImpl"/>
+  -->	
+  <bean id="myListener" 
+		class="com.huateng.uniform.sysauditlogger.service.AuditLoggerListenerImplNew" >
+	 <!--   <property name="chEnMappingDao" ref="chEnMappingDao"></property>-->	
+	</bean>
+	<bean id="entityInterceptor"
+		class="com.huateng.ebank.framework.util.HibernateInterceptor">
+	</bean>
+	<!-- Choose the dialect that matches your "dataSource" definition -->
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!--  -->
+		<property name="eventListeners">
+			<map>
+				<!-- 配置新增后监听器，对应监听器的onPostInsert方法 -->
+				<entry key="post-insert">
+					<ref bean="myListener"/>
+				</entry>
+				<!-- 配置删除后监听器，对应监听器的onPostDelete方法 -->
+				<entry key="post-delete">
+					<ref bean="myListener"/>
+				</entry>
+				<!-- 配置更新后监听器，对应监听器的onPostUpdate方法 -->
+				<entry key="post-update">
+					<ref bean="myListener"/>
+				</entry>
+			</map>
+		</property>
+		<property name="entityInterceptor">
+			<ref local="entityInterceptor" />
+		</property>
+		<property name="dataSource">
+			<ref bean="bmsdataSource" />
+		</property>
+		<property name="mappingLocations">
+			<list>
+				<value>classpath:/orm/hbm/*.xml</value>
+				<value>classpath:/resources/business/hbm/*.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.dialect">com.huateng.hibernate.dialect.HTOracle9Dialect</prop> -->
+				
+				<prop key="hibernate.dialect">
+					com.huateng.hibernate.dialect.HTMySQL5Dialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="myTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="mySessionFactory" />
+		</property>
+	</bean>
+	<!-- Operation Caller Target的配置 -->
+	<bean id="CallerTarget"
+		class="com.huateng.ebank.framework.operation.OPCaller">
+	</bean>
+	<!--Operation Caller的配置, 使用transaction对Call方法来进行保护。-->
+	<bean id="operationCaller" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="myTransactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="CallerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="doLog">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="doTlsrno">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="callOperation">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--Operation Caller的配置, 使用transaction对Call方法来进行保护。-->
+	<bean id="singleCaller" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="myTransactionManager" />
+		</property>
+		<property name="target">
+			<bean id="SingleCallerTarget"
+				class="com.huateng.ebank.framework.operation.SingleOPCaller">
+		</bean>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="callOperation">PROPAGATION_REQUIRES_NEW,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- SWT  TransactionInterceptor-->
+	<bean id="TransactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref bean="myTransactionManager" />
+		</property>
+		<property name="transactionAttributeSource">
+			<value>
+				com.huateng.ebank.monitor.scheduler.service.ITaskJobScheduler.*=PROPAGATION_REQUIRED,-Exception
+			</value>
+		</property>
+	</bean>
+</beans>

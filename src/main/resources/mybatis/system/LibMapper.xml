@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.cuis.manager.system.lib.dao.ILibDao">
+	<select id="getSqlById" parameterType="map" resultType="string">
+		select t.category_sql from t_lib_category t where t.category_id = #{id} and t.status = 1
+	</select>
+	
+	<select id="getSelectById"  parameterType="map" resultType="com.hy.cuis.common.entity.SimpleSelect">
+		select t.code_key id,t.code_value text from t_lib_codes t where t.status = 1 and  t.category_id = #{id}
+		group by t.order_index
+	</select>
+	
+	<select id="getSelectBySql"  parameterType="map" resultType="com.hy.cuis.common.entity.SimpleSelect">
+		${value}
+	</select>
+
+</mapper>

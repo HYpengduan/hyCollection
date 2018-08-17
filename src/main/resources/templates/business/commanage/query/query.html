@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="comm.include::header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content  animated fadeInRight">
+		<div id="query-condition" class="panel panel-default">
+			<div class="panel-body">
+				<form class="form-horizontal row">
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">客户名</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">账户</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">证件号码</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">账户类型</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">城市</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">到期退案日</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">催收机构</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">催收员</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">案件号</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<div class="col-md-4 control-label">电话</div>
+						<div class="col-md-8">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+				</form>
+				<div class="btn-toolbar btn-group-sm" role="toolbar">
+					<button type="button" id="do-query" class="btn btn-info">查询</button>
+					<button type="button" class="btn btn-default">重置</button>
+				</div>
+
+			</div>
+		</div>
+		<div class="data-table">
+			<table id="data_table"></table>
+			<div id="pagination"></div>
+		</div>
+		
+	</div>
+	<div th:include="comm.include::footer"></div>
+	<script type="text/javascript" src="/business/commanage/query/query.js"></script>
+	<script th:inline="javascript" type="text/javascript">
+		var editFlag = [[${@permissionService.hasPermi('system:role:edit')}]];
+		var removeFlag = [[${@permissionService.hasPermi('system:role:remove')}]];
+	</script>
+</body>
+</html>

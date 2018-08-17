@@ -1,0 +1,22 @@
+package com.hy.cuis;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
+/**
+ * 启动程序
+ * 
+ * @author ruoyi
+ */
+@SpringBootApplication
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
+public class HYCuiApplication
+{
+    public static void main(String[] args)
+    {
+        SpringApplication.run(HYCuiApplication.class, args);
+        System.out.println("催收系统成功启动");
+    }
+}

@@ -1,0 +1,40 @@
+<head th:fragment="header">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/font-awesome.css" rel="stylesheet">
+	<link href="/css/animate.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="/plugins/jqgrid/css/ui.jqgrid-bootstrap.css" rel="stylesheet">
+	<link href="/plugins/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+	<link href="/plugins/select2/select2.min.css" rel="stylesheet">
+</head>
+
+<div th:fragment="footer">
+<!-- 
+	<script src="/js/jquery.min.js"></script> -->
+	<script src="/js/plugins/jquery-1.12.4.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	
+	<!-- bootstrap-table 表格插件 -->
+	<script src=""></script>
+	<script src="/plugins/jqgrid/js/jquery.jqGrid.min.js"></script>
+	<script src="/plugins/jqgrid/js/i18n/grid.locale-cn.js"></script>
+	<!-- jquery-validate 表单验证插件 -->
+	<script src="/ajax/libs/validate/jquery.validate.min.js"></script>
+	<script src="/ajax/libs/validate/messages_zh.min.js"></script>
+	
+	<script src="/plugins/datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script src="/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<!-- 
+	<script src="/plugins/select2/select2.full.min.js"></script> -->
+	<!-- jquery-validate 表单树插件 -->
+	<script src="/ajax/libs/layer/layer.min.js"></script>
+	<script src="/manager/js/common.js"></script>
+	<script src="/manager/js/common-ui.js"></script>
+	<script src="http://tajs.qq.com/stats?sId=62048022"></script>
+</div>
